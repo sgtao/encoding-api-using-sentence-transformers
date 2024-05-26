@@ -44,8 +44,6 @@ def get_collections():
 def create_collection(collection_name):
     try:
         print(f"receive request as {collection_name}")
-        # print(f"request body is {request.json}")
-        # if collection_name not in collections:
         data = request.json
         embedding_reference = data.get("embedding_reference")
         if embedding_reference is None:
@@ -66,13 +64,45 @@ def create_collection(collection_name):
         # インデックスをファイルに保存
         faiss.write_index(faiss_index, index_path)
 
-        # コレクションをメモリに保存
-        # collections[collection_name] = FAISS.from_texts([], embeddings)
-        # collections[collection_name].save_local(index_path)
-
         return jsonify({"message": "Collection created"}), 201
     except Exception as e:
         return jsonify({"error": f"An unexpected error occurred: {str(e)}"}), 500
+
+
+@app.route('/collections/<collection_name>/similarity', methods=['POST'])
+def similarity_search(collection_name):
+    print(f"similarity request at {collection_name}")
+    storage_path = os.path.join("storage", collection_name)
+    index_file_path = os.path.join(storage_path, "index.faiss")
+
+    # `index_file_path`のファイルがなければ 404応答する
+    if not os.path.exists(index_file_path):
+        return jsonify({"error": "Index file not found"}), 404
+
+    # FAISSファイルからコレクションを取得
+    try:
+        faiss_index = faiss.read_index(index_file_path)
+    except Exception as e:
+        return jsonify({"error": f"Failed to load FAISS index: {str(e)}"}), 500
+
+    data = request.json
+    query = data.get("query", "")
+    if not query:
+        return jsonify({"error": "Query is missing in request body"}), 400
+
+    query_embedding = encoder.encode([query], convert_to_tensor=True)
+    query_embedding_np = query_embedding.cpu().numpy()
+
+    # 類似検索の実行
+    k = data.get("k", 1)  # デフォルトで1件の類似結果を返す
+    distances, indices = faiss_index.search(query_embedding_np, k)
+
+    # print(jsonify({"closest_point_id": int(indices[0][0]), "distance": float(distances[0][0])}))
+
+    if len(indices) > 0 and indices[0][0] != -1:
+        return jsonify({"closest_point_id": int(indices[0][0]), "distance": float(distances[0][0])}), 200
+    else:
+        return jsonify({"error": "No similar points found"}), 404
 
 
 if __name__ == '__main__':
