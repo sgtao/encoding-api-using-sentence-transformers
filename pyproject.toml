@@ -3,7 +3,7 @@ name = "encoding-api-using-sentence-transformers"
 version = "0.1.0"
 description = ""
 authors = ["Shogo Ogami <sg.tao.so@gmail.com>"]
-license = "MIT-License"
+license = "Apache-2.0 license"
 readme = "README.md"
 
 [tool.poetry.dependencies]
