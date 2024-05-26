@@ -5,7 +5,7 @@ from sentence_transformers import SentenceTransformer
 from waitress import serve
 
 app = Flask(__name__)
-
+port_no = 5000
 
 @app.route('/encoding', methods=['POST'])
 def encoding():
@@ -26,4 +26,5 @@ if __name__ == '__main__':
     # encoder = SentenceTransformer(model_name_or_path=model_name_or_path)
     encoder = SentenceTransformer(model_name_or_path)
 
-    serve(app, host="0.0.0.0", port=5000)
+    print(f"アプリを起動します。アクセスURL: http://localhost:{port_no}")
+    serve(app, host="0.0.0.0", port=port_no)

@@ -11,7 +11,7 @@ poetry install
 ## Usage
 ```sh
 poetry shell
-python app.py
+python3 ./app.py
 ```
 
 ## References
