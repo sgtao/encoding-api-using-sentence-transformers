@@ -114,18 +114,24 @@ def similarity_search(collection_name):
         # 最も類似するテキストのインデックスを取得
         index = int(indices[0][0])
 
-        # インデックスに対応するテキストを検索
-        text = None
-        for item in texts:
-            if item["id"] == index:
-                text = item["text"]
-                break
+        # 類似するテキストのリストを作成
+        similar_texts = []
+        for i in range(len(indices[0])):
+            index = int(indices[0][i])
+            distance = float(distances[0][i])
+            text = None
+            for item in texts:
+                if item["id"] == index:
+                    text = item["text"]
+                    break
+            if text:
+                similar_texts.append({"text": text, "distance": distance})
 
-        # テキストが見つかった場合
-        if text:
-            return jsonify({"closest_text": text, "distance": float(distances[0][0])}), 200
+        # 類似するテキストが見つかった場合
+        if similar_texts:
+            return jsonify({"similar_items": similar_texts}), 200
         else:
-            return jsonify({"error": f"Text of {index} not found for the given index"}), 404
+            return jsonify({"error": "No similar texts found"}), 404
     else:
         return jsonify({"error": "No similar points found"}), 404
 
