@@ -1,6 +1,14 @@
 # semantic-trans-search
 - [sentence-transformers](https://www.sbert.net/index.html)を使ってベクトル値計算・ベクトル検索を提供するAPIサービスを構築する
 
+## 利用モデル
+- 試したモデルをまとめる
+
+Model Name | 次元数 | 制約条件\n(Max Token Sizeなど) | ダウンロードサイズ(GB) | 備考
+--|--|--|--|--
+[stsb-xlm-r-multilingual](https://huggingface.co/sentence-transformers/stsb-xlm-r-multilingual) | 768次元 | -- | 1.1GB | コメントアウト
+[Multilingual-E5](https://huggingface.co/intfloat/multilingual-e5-base) | 1,024次元 | 最大512トークン | 2.2GB | 利用
+
 ## Setup
 ```sh
 # after git clone
@@ -33,7 +41,9 @@ python3 ./app.py
 - Zenn : 『[似た文書をベクトル検索で探し出したい](https://zenn.dev/nishimoto/articles/0c2ac8c061e597)』
 - note : 『[Sentence Transformers の使い方](https://note.com/npaka/n/n82d058c68172)』
 - 記事：『[nikkie-ftnextの日記 @ 2023-07-08](https://nikkie-ftnext.hatenablog.com/entry/sentence-transformers-embeddings-introduction-en-ja)』
+  - 多言語を扱えるモデル [stsb-xlm-r-multilingual](https://huggingface.co/sentence-transformers/stsb-xlm-r-multilingual) を紹介してる
 - [Qdrant Documentation](https://qdrant.tech/documentation/)
-
+- Zenn : 『[Embeddingsを使ってローカルでテキストをクラスタリングする](https://zenn.dev/libratech/articles/afe9c5b30668bb)』
+  - 多言語・高精度モデル [Multilingual-E5](https://huggingface.co/intfloat/multilingual-e5-base) を紹介している
 ## LICENSE
 - Apache-2.0 license

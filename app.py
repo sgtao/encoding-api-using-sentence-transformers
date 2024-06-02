@@ -11,7 +11,8 @@ app = Flask(__name__)
 port_no = 5000
 
 # モデルの初期化
-model_name_or_path = "stsb-xlm-r-multilingual"
+# model_name_or_path = "stsb-xlm-r-multilingual"
+model_name_or_path = "intfloat/multilingual-e5-large"
 encoder = SentenceTransformer(model_name_or_path)
 
 
