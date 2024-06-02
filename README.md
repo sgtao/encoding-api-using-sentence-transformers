@@ -26,16 +26,16 @@ python3 ./app.py
 ### Access Point
 - ローカル起動の場合、アクセスポイントは
   - オリジン：http://localhost:5000
-  - 提供パス：
-    - GET、`/echo`：応答のみ
-    - POST、`/embedding`：テキスト情報からベクトル値を取得
-    - GET、`/collections`：DB名（collection_name）のリストを取得
-    - GET、`/collections/<collection_name>`：DB名の基本情報を取得
-    - PUT、`/collections/<collection_name>`：DB名がない場合、`storage/<collection_name>/index.faiss`ファイルを作成
-    - GET、`/collections/<collection_name>/points`：DBに格納されるpointのID一覧を取得
-    - GET、`/collections/<collection_name>/points/payload?id=<id>`：DBのIDに関する情報を取得
-    - PUT、`/collections/<collection_name>/point?id=<id>`：DB名に対して新たにIDでアイテムを作成・上書き
-    - POST、`/collections/<collection_name>/similarity`：DBに対して類似検索を実施（最も近いIDの情報を取得）
+  - 提供パス：（チェックが実装済み）
+    - [x] GET、`/echo`：応答のみ
+    - [x] POST、`/embedding`：テキスト情報からベクトル値を取得
+    - [x] GET、`/collections`：DB名（collection_name）のリストを取得
+    - [ ] GET、`/collections/<collection_name>`：DB名の基本情報を取得
+    - [x] PUT、`/collections/<collection_name>`：DB名がない場合、`storage/<collection_name>/index.faiss`ファイルを作成
+    - [ ] GET、`/collections/<collection_name>/points`：DBに格納されるpointのID一覧を取得
+    - [ ] GET、`/collections/<collection_name>/points/payload?id=<id>`：DBのIDに関する情報を取得
+    - [x] PUT、`/collections/<collection_name>/point?id=<id>`：DB名に対して新たにIDでアイテムを作成・上書き
+    - [x] POST、`/collections/<collection_name>/similarity`：DBに対して類似検索を実施（最も近いIDの情報を取得）
 
 ## References
 - Zenn : 『[似た文書をベクトル検索で探し出したい](https://zenn.dev/nishimoto/articles/0c2ac8c061e597)』
