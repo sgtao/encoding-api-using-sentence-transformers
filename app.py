@@ -19,12 +19,15 @@ encoder = SentenceTransformer(model_name_or_path)
 @app.route('/echo', methods=['GET'])
 def echo():
     """Echo endpoint for testing."""
+    ip_address = request.remote_addr
+    print(f"echo request from {ip_address}")
     return jsonify({"message": "Echo response"}), 200
 
 
 @app.route('/encoding', methods=['POST'])
 def encoding():
     """Encode sentences into embeddings."""
+    print(f"post collections from request.")
     data = request.json
     sentences = data.get("sentences", [])
     batch_size = int(data.get("batch_size", 8))
@@ -36,6 +39,7 @@ def encoding():
 @app.route('/collections', methods=['GET'])
 def get_collections():
     """Get list of collections."""
+    print(f"get collections")
     storage_path = 'storage'
     if not os.path.exists(storage_path):
         return jsonify({"error": "Storage directory not found"}), 404
